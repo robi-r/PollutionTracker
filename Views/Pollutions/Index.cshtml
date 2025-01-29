@@ -1,0 +1,84 @@
+﻿@model IEnumerable<PollutionTracker.Models.Pollution>
+
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h1>Index</h1>
+
+<p>
+    <a asp-action="Create">Create New</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Temperature)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Humidity)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.LPG_Isobutane)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.CarbonMonoxide)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Hydrogen)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.CO2)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.NH3)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.RecordedAt)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Sensor)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Temperature)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Humidity)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.LPG_Isobutane)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.CarbonMonoxide)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Hydrogen)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.CO2)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.NH3)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.RecordedAt)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Sensor.SensorID)
+            </td>
+            <td>
+                <a asp-action="Edit" asp-route-id="@item.PollutionID">Edit</a> |
+                <a asp-action="Details" asp-route-id="@item.PollutionID">Details</a> |
+                <a asp-action="Delete" asp-route-id="@item.PollutionID">Delete</a>
+            </td>
+        </tr>
+}
+    </tbody>
+</table>
