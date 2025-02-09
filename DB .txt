@@ -1,0 +1,113 @@
+-- Database schema for pollution detection web app
+
+CREATE DATABASE PollutionDetectionDB;
+USE PollutionDetectionDB;
+
+-- Users table to store user information
+CREATE TABLE Users (
+    UserID INT PRIMARY KEY IDENTITY(1,1),
+    Username NVARCHAR(50) NOT NULL,
+    Email NVARCHAR(100) NOT NULL UNIQUE,
+    PasswordHash NVARCHAR(255) NOT NULL,
+    Role NVARCHAR(20) DEFAULT 'User',
+    CreatedAt DATETIME DEFAULT GETDATE()
+);
+
+-- Location table to store location details
+CREATE TABLE Location (
+    LocationID INT PRIMARY KEY IDENTITY(1,1),
+    LocationName NVARCHAR(100) NOT NULL,
+    Latitude FLOAT NOT NULL,
+    Longitude FLOAT NOT NULL,
+    CreatedAt DATETIME DEFAULT GETDATE()
+);
+
+-- Sensors table to store information about sensors
+CREATE TABLE Sensors (
+    SensorID INT PRIMARY KEY IDENTITY(1,1),
+    SensorType NVARCHAR(50) NOT NULL, -- e.g., "Air Quality", "Temperature"
+    ModelNumber NVARCHAR(50),
+    LocationID INT NOT NULL FOREIGN KEY REFERENCES Location(LocationID),
+    Status NVARCHAR(20) DEFAULT 'Active', -- e.g., "Active", "Inactive"
+    InstalledAt DATETIME DEFAULT GETDATE()
+);
+
+-- Pollution table to store pollution readings from sensors
+CREATE TABLE Pollution (
+    PollutionID INT PRIMARY KEY IDENTITY(1,1),
+    SensorID INT NOT NULL FOREIGN KEY REFERENCES Sensors(SensorID),
+    Temperature FLOAT NOT NULL,
+    Humidity FLOAT NOT NULL,
+    LPG_Isobutane FLOAT NOT NULL,
+    CarbonMonoxide FLOAT NOT NULL,
+    Hydrogen FLOAT NOT NULL,
+    CO2 FLOAT NOT NULL,
+    NH3 FLOAT NOT NULL,
+    RecordedAt DATETIME DEFAULT GETDATE()
+);
+
+-- AlertThreshold table to define thresholds for pollution levels
+CREATE TABLE AlertThreshold (
+    ThresholdID INT PRIMARY KEY IDENTITY(1,1),
+    Parameter NVARCHAR(50) NOT NULL, -- e.g., "CO2", "Temperature"
+    ThresholdValue FLOAT NOT NULL,
+    SeverityLevel NVARCHAR(20), -- e.g., "Low", "Moderate", "High"
+    CreatedAt DATETIME DEFAULT GETDATE()
+);
+
+-- Establishing relationships between tables
+ALTER TABLE Sensors ADD CONSTRAINT FK_Sensors_Location FOREIGN KEY (LocationID) REFERENCES Location(LocationID);
+ALTER TABLE Pollution ADD CONSTRAINT FK_Pollution_Sensors FOREIGN KEY (SensorID) REFERENCES Sensors(SensorID);
+
+
+
+Table Relationships and Details
+Here are the relationships and details between each of your tables:
+
+Users Table (Provided by .NET Identity):
+
+Purpose: This table handles user authentication and authorization.
+Details:
+UserID: Primary Key.
+Username, Email, PasswordHash, Role, CreatedAt: Standard identity properties.
+Relation: The Users table doesn't need direct relationships with your pollution-related tables unless you want to track user actions (e.g., user-generated pollution reports). For now, this table is managed by ASP.NET Identity.
+Area Table:
+
+Purpose: Represents a geographical area where pollution is monitored.
+Details:
+AreaID: Primary Key.
+LocationName, Latitude, Longitude, CreatedAt: Attributes for area details.
+Relation:
+Has many Sensors: One Area can have multiple sensors to detect pollution in different parts of the area.
+Sensor Table:
+
+Purpose: Stores details of sensors used to detect pollution in specific areas.
+Details:
+SensorID: Primary Key.
+SensorType, ModelNumber, Status, InstalledAt: Details of the sensor.
+AreaID: Foreign Key linking to the Area table.
+Relation:
+Belongs to Area: Each Sensor belongs to an Area (many-to-one).
+Has many Pollution records: One Sensor can generate multiple pollution readings.
+Pollution Table:
+
+Purpose: Stores pollution readings from sensors.
+Details:
+PollutionID: Primary Key.
+SensorID: Foreign Key linking to the Sensor table.
+Pollution-related fields: Temperature, Humidity, LPG_Isobutane, CarbonMonoxide, Hydrogen, CO2, NH3, RecordedAt.
+Relation:
+Belongs to Sensor: Each Pollution record comes from one Sensor.
+AlertThreshold Table:
+
+Purpose: Stores pollution level thresholds for triggering alerts.
+Details:
+ThresholdID: Primary Key.
+Parameter, ThresholdValue, SeverityLevel, CreatedAt.
+Relation:
+Can be related to multiple sensors or pollution readings: If needed, you can link AlertThreshold to specific Sensor or Pollution records in the future, but right now it’s independent.
+
+Final Relationships:
+Area ↔ Sensor: One Area can have many Sensors. If an Area is deleted, Sensors linked to that Area will be restricted from deletion (i.e., Area can't be deleted if any Sensors are present).
+Sensor ↔ AlertThreshold: Each Sensor can have one AlertThreshold. If the AlertThreshold is deleted, Sensor.AlertThresholdID will be set to null.
+Sensor ↔ Pollution: One Sensor can have many Pollutions. If a Sensor is deleted, its linked Pollutions will also be deleted (cascade).

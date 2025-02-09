@@ -1,0 +1,77 @@
+﻿<div class="text-center" style="background:none;">
+    <h1 class="display-4">Hello @User.Identity.Name!!</h1>
+    <div class="row mt-5">
+        <div class="col-md-12">
+
+            <div class="text-left" style="margin-top: 5rem;">
+                <h1>Air Quality Dashboard</h1>
+                <p style="margin-top: 5rem;">
+                    Select an area to view its air quality data:
+                </p>
+
+                <!-- Area Dropdown -->
+                <div>
+                    <label for="areaSelect">Select Area:</label>
+                    <select id="areaSelect" class="form-control">
+                        <option value="Gulshan">Gulshan</option>
+                        <option value="Mohakhali">Mohakhali</option>
+                        <option value="Banani">Banani</option>
+                    </select>
+                </div>
+
+                <!-- Air Quality Table -->
+                <table class="table table-bordered table-striped mt-4">
+                    <thead>
+                        <tr>
+                            <th>Pollutant</th>
+                            <th>Concentration (µg/m³)</th>
+                            <th>Alert Level</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>CO2</td>
+                            <td>300</td>
+                            <td class="alert-level moderate">Moderate</td>
+                        </tr>
+                        <tr>
+                            <td>NH3</td>
+                            <td>60</td>
+                            <td class="alert-level low">Low</td>
+                        </tr>
+                        <tr>
+                            <td>LPG</td>
+                            <td>110</td>
+                            <td class="alert-level high">High</td>
+                        </tr>
+                        <tr>
+                            <td>PM2.5</td>
+                            <td>170</td>
+                            <td class="alert-level very-high">Very High</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+
+<style>
+    /* Alert level colors */
+    .alert-level.low {
+        background-color: lightgreen;
+    }
+
+    .alert-level.moderate {
+        background-color: yellow;
+    }
+
+    .alert-level.high {
+        background-color: orange;
+    }
+
+    .alert-level.very-high {
+        background-color: red;
+        color: white;
+    }
+</style>

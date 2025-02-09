@@ -1,0 +1,167 @@
+﻿<!DOCTYPE html>
+<html lang="en" style="height: 100%;">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewData["Title"] - PollutionTracker</title>
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
+    <link rel="stylesheet" href="~/PollutionTracker.styles.css" asp-append-version="true" />
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <style>
+        /* Ensure html and body take up full height */
+        html, body {
+            height: 100%;
+            margin: 0;
+            padding: 0;
+        }
+
+        /* Set background color for the entire website */
+        body {
+            background-color: 94BC9D; /* Blue background */
+        }
+
+        /* Body section with background image */
+        .body-background {
+            background-image: url('/images/maps_2.jpg'); /* Path to your image */
+            background-size: cover; /* Cover the entire body */
+            background-position: center; /* Center the image */
+            background-repeat: no-repeat; /* Prevent repeating */
+            min-height: calc(100vh - 120px); /* Full height minus navbar and footer */
+           /*  padding-top: 20px; Add some spacing below the navbar */
+        }
+
+        /* Ensure content is visible on top of the background */
+        .content {
+            background-color: rgba(255, 255, 255, 0.8); /* Semi-transparent white background */
+            padding: 20px;
+            border-radius: 10px; /* Rounded corners */
+            margin: 20px auto; /* Center the content */
+            max-width: 1200px; /* Limit content width */
+        }
+
+        /* Custom hover effects for navigation items */
+        .nav-item:hover .nav-link {
+            background-color: #f8f9fa; /* Light gray background on hover */
+            border-radius: 4px; /* Rounded corners */
+            transition: background-color 0.3s ease;
+        }
+
+        /* Sub-item hover effect */
+        .dropdown-item:hover {
+            background-color: #007bff; /* Blue background on hover */
+            color: white !important; /* White text on hover */
+            transition: background-color 0.3s ease, color 0.3s ease;
+        }
+
+        /* Underline effect for main items */
+        .nav-link {
+            position: relative;
+        }
+
+            .nav-link::after {
+                content: '';
+                position: absolute;
+                width: 0;
+                height: 2px;
+                bottom: 0;
+                left: 50%;
+                background-color: #007bff; /* Blue underline */
+                transition: width 0.3s ease, left 0.3s ease;
+            }
+
+            .nav-link:hover::after {
+                width: 100%;
+                left: 0;
+            }
+
+        /* Hover-only dropdowns */
+        .nav-item.dropdown:hover .dropdown-menu {
+            display: block; /* Show dropdown on hover */
+        }
+
+        .dropdown-menu {
+            display: none; /* Hide dropdown by default */
+            margin-top: 0; /* Remove gap between nav item and dropdown */
+            border: none; /* Remove default border */
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Add subtle shadow */
+        }
+    </style>
+</head>
+<body style="height: 100%;">
+    <header>
+        <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
+            <div class="container-fluid">
+                <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">
+                    <img src="/images/prohoraLogo.png" alt="Logo" width="50" height="50">
+                </a>
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target=".navbar-collapse" aria-controls="navbarSupportedContent"
+                        aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
+                    <ul class="navbar-nav flex-grow-1">
+
+                        @if (User.Identity.IsAuthenticated)
+                        {
+                            <li class="nav-item">
+                                <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="dashboard">Dashboard</a>
+                            </li>
+                        }
+
+                        <li class="nav-item">
+                            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index">Home</a>
+                        </li>
+
+                        <!-- Areas with Sub-Items -->
+                        <li class="nav-item dropdown">
+                            <a class="nav-link text-dark" href="#" id="areasDropdown" role="button">
+                                Areas
+                            </a>
+                            <ul class="dropdown-menu" aria-labelledby="areasDropdown">
+                                <li><a class="dropdown-item" href="/Public/Location">Urban Areas</a></li>
+                                <li><a class="dropdown-item" href="#">Rural Areas</a></li>
+                                <li><a class="dropdown-item" href="#">Industrial Zones</a></li>
+                            </ul>
+                        </li>
+
+                        <!-- Threshold with Sub-Items -->
+                        <li class="nav-item dropdown">
+                            <a class="nav-link text-dark" href="#" id="thresholdDropdown" role="button">
+                                Threshold
+                            </a>
+                            <ul class="dropdown-menu" aria-labelledby="thresholdDropdown">
+                                <li><a class="dropdown-item" href="/public/threshold">Air Quality</a></li>
+                                <li><a class="dropdown-item" href="#">Water Quality</a></li>
+                                <li><a class="dropdown-item" href="#">Noise Level</a></li>
+                            </ul>
+                        </li>
+
+                    </ul>
+                    <partial name="_LoginPartial" />
+                </div>
+            </div>
+        </nav>
+    </header>
+
+    <!-- Body Section with Background Image -->
+    <div class="body-background">
+        <div class="container">
+            <main role="main" class="pb-3">
+                @RenderBody()
+            </main>
+        </div>
+    </div>
+    <!--
+    <footer class="border-top footer text-muted">
+        <div class="container">
+            &copy; 2025 - PollutionTracker - <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
+        </div>
+    </footer>
+    -->
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="~/js/site.js" asp-append-version="true"></script>
+    @await RenderSectionAsync("Scripts", required: false)
+</body>
+</html>

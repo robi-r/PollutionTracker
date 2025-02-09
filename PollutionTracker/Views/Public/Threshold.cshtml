@@ -1,0 +1,25 @@
+﻿@page
+@model PollutionTracker.Views.Public.ThresholdModel
+
+@{
+    ViewData["Title"] = "Threshold";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h1>Threshold</h1>
+
+
+@foreach (var item in Model.AlertThreshold) {
+        <div class=" = "col-md-4">
+        <div class="card">
+            <img class="card-img-top" height="100" src="https://th.bing.com/th/id/OIP.G3YhYlX28gLmEKSUUTW9CwHaHa?rs=1&pid=ImgDetMain" alt="Card image cap">
+            <div class="card-body">
+                <h5 class="card-title">@item.ThresholdValue</h5>
+                <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+                <span class= "fw-bolder"> @item.Area.AreaName</span>
+                <a href="#" class="btn btn-joutline-primary"> Go somewhere </a>
+            </div>
+        </div>
+        </div>
+}
+   

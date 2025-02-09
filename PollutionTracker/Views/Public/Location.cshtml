@@ -1,0 +1,23 @@
+﻿@page
+@model PollutionTracker.Views.Public.LocationModel
+
+@{
+    ViewData["Title"] = "Location";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h1>Location</h1>
+@foreach (var item in Model.Area) {
+            <div class=" = " col-md-4">
+                <div class="card">
+                    <img class="card-img-top" height="100" src="https://th.bing.com/th/id/R.eed86df94473f4089011dde03226ef10?rik=TbMroqGsiW5v2g&riu=http%3a%2f%2fwww.virtualbangladesh.com%2fwp-content%2fuploads%2f2014%2f11%2fDhaka-City-Map.png&ehk=o%2fKsZkUZp5KWg3S4cSy6DdAlHuHml14GssyF1MfKkck%3d&risl=&pid=ImgRaw&r=0" alt="Card image cap">
+                    <div class="card-body">
+                        <h5 class="card-title">@item.AreaName</h5>
+                        <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+                        <span class="fw-bolder"> @item.Sensors</span>
+                        <a href="#" class="btn btn-joutline-primary"> Go somewhere </a>
+                    </div>
+                </div>
+            </div>
+}
+

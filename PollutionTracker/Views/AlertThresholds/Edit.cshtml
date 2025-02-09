@@ -1,0 +1,55 @@
+﻿@model PollutionTracker.Models.AlertThreshold
+
+@{
+    ViewData["Title"] = "Edit";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h1>Edit</h1>
+
+<h4>AlertThreshold</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="Edit">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <input type="hidden" asp-for="ThresholdID" />
+            <div class="form-group">
+                <label asp-for="Parameter" class="control-label"></label>
+                <input asp-for="Parameter" class="form-control" />
+                <span asp-validation-for="Parameter" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="ThresholdValue" class="control-label"></label>
+                <input asp-for="ThresholdValue" class="form-control" />
+                <span asp-validation-for="ThresholdValue" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="SeverityLevel" class="control-label"></label>
+                <input asp-for="SeverityLevel" class="form-control" />
+                <span asp-validation-for="SeverityLevel" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="CreatedAt" class="control-label"></label>
+                <input asp-for="CreatedAt" class="form-control" />
+                <span asp-validation-for="CreatedAt" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="AreaID" class="control-label"></label>
+                <select asp-for="AreaID" class="form-control" asp-items="ViewBag.AreaID"></select>
+                <span asp-validation-for="AreaID" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Save" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-action="Index">Back to List</a>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

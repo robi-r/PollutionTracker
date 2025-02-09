@@ -1,0 +1,75 @@
+﻿@model PollutionTracker.Models.Pollution
+
+@{
+    ViewData["Title"] = "Edit";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h1>Edit</h1>
+
+<h4>Pollution</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="Edit">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <input type="hidden" asp-for="PollutionID" />
+            <div class="form-group">
+                <label asp-for="SensorID" class="control-label"></label>
+                <select asp-for="SensorID" class="form-control" asp-items="ViewBag.SensorID"></select>
+                <span asp-validation-for="SensorID" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Temperature" class="control-label"></label>
+                <input asp-for="Temperature" class="form-control" />
+                <span asp-validation-for="Temperature" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Humidity" class="control-label"></label>
+                <input asp-for="Humidity" class="form-control" />
+                <span asp-validation-for="Humidity" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="LPG_Isobutane" class="control-label"></label>
+                <input asp-for="LPG_Isobutane" class="form-control" />
+                <span asp-validation-for="LPG_Isobutane" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="CarbonMonoxide" class="control-label"></label>
+                <input asp-for="CarbonMonoxide" class="form-control" />
+                <span asp-validation-for="CarbonMonoxide" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Hydrogen" class="control-label"></label>
+                <input asp-for="Hydrogen" class="form-control" />
+                <span asp-validation-for="Hydrogen" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="CO2" class="control-label"></label>
+                <input asp-for="CO2" class="form-control" />
+                <span asp-validation-for="CO2" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="NH3" class="control-label"></label>
+                <input asp-for="NH3" class="form-control" />
+                <span asp-validation-for="NH3" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="RecordedAt" class="control-label"></label>
+                <input asp-for="RecordedAt" class="form-control" />
+                <span asp-validation-for="RecordedAt" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Save" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-action="Index">Back to List</a>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

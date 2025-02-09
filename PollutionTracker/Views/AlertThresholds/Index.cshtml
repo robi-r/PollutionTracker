@@ -1,0 +1,60 @@
+﻿@model IEnumerable<PollutionTracker.Models.AlertThreshold>
+
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h1>Index</h1>
+
+<p>
+    <a asp-action="Create">Create New</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Parameter)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.ThresholdValue)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.SeverityLevel)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.CreatedAt)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Area)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Parameter)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.ThresholdValue)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.SeverityLevel)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.CreatedAt)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Area.AreaID)
+            </td>
+            <td>
+                <a asp-action="Edit" asp-route-id="@item.ThresholdID">Edit</a> |
+                <a asp-action="Details" asp-route-id="@item.ThresholdID">Details</a> |
+                <a asp-action="Delete" asp-route-id="@item.ThresholdID">Delete</a>
+            </td>
+        </tr>
+}
+    </tbody>
+</table>
